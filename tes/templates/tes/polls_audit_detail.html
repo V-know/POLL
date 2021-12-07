@@ -1,0 +1,59 @@
+{% extends "tes/base.html" %}
+{% block title %}问题详情{% endblock %}
+
+{% block content %}
+<meta charset="utf-8">
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-4">
+            <form action="{% url 'audit' question.id %}" method="post">
+                {% csrf_token %}
+                <fieldset>
+                    <legend><h1 class="text-left">{{ question.question_text }}</h1></legend>
+                    {% if error_message %}
+                    <p style="color:red"><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+                    <br>
+                    <ul>
+                        {% for choice in question.choice_set.all %}
+                        <input type="radio" name="choice" id="choice_{{ choice.id }}"
+                               value="{{choice.id}}">
+                        <label for="choice_{{ choice.id }}"><h5>{{ choice.choice_text}}</h5></label>
+                        </br>
+                        {% endfor %}
+                    </ul>
+                    </br>
+
+                    <div class="col-md-3 col-md-offset-5">
+                        <a href="{% url 'audit' question.id %}" class="btn btn btn-primary btn-block" type="submit">通过</a>
+                        <a href="{% url 'audit_del' question.id %}" class="btn btn-sm btn-danger btn-block " type="submit">删除</a>
+                    </div>
+                </fieldset>
+                <p>发布日期: {{ question.created_datetime }}</p>
+                <p>结束日期: {{ question.end_date }}</p>
+            </form>
+        </div>
+        <div class="form-group">
+            <div class="col-md-1 col-md-offset-8">
+                <a class="btn btn btn-primary btn-block"
+                   href="{% url 'polls_audit'  %}">Return</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--<div>-->
+<!--    {% if questions %}-->
+<!--    <ul>-->
+<!--        {% for q in questions %}-->
+<!--            <li><a href="{% url 'detail' q.id %}"> {{q.question_text}}</a></li>-->
+
+<!--        {% endfor %}-->
+
+<!--    </ul>-->
+
+<!--    {% endif %}-->
+<!--</div>-->
+{% endblock %}
+

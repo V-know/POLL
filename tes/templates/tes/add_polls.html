@@ -1,0 +1,91 @@
+{% extends "tes/base.html" %}
+{% block title %}添加图书{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <fieldset class="module aligned ">
+            <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
+                {% if state == 'success' %}
+                <div class="well">
+                    <h2 class="text-success text-center">添加成功</h2>
+                </div>
+                {% endif %}
+                <form method="POST" role="form" class=" form-horizontal">
+                    {% csrf_token %}
+                    <h1 class=" form-signin-heading text-center">发起投票</h1>
+                    <div class="form-group">
+                        <label for="id_name" class="col-md-3 control-label">问题: </label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" id="id_name" required name="question_text"
+                                   autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="id_end" class="col-md-3 control-label">结束日期: </label>
+                        <div class="col-md-9">
+                            <input type="date" class=" form-control" required name="end_date" id="id_end">
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <label for="id_choice" class="col-md-3 control-label">选项1：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" required name="choice_text" id="id_choice">
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <label for="id_choice" class="col-md-3 control-label">选项2：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" required name="choice_text" id="id_choice">
+                        </div>
+                    </div>
+                    <div class=" form-group">
+                        <label for="id_choice" class="col-md-3 control-label">选项3：</label>
+                        <div class="col-md-9">
+                            <input type="text" class="form-control" required name="choice_text" id="id_choice">
+                        </div>
+                    </div>
+                    <div>
+                        <ul id="ulid21">
+                            <li id="li11">选项:</li>
+                        </ul>
+                        <tr>
+                            <input type="button" value="增加选项" onclick="insert1()"/>
+                        </tr>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-4 col-md-offset-4">
+                            <button class="btn btn btn-primary btn-block" type="submit">提交</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<!--如何增加一个按钮实现添加选项？？？？ 与上边的样式相同 -->
+<script type="text/javascript">
+            function insert1() {
+            var li13 = document.getElementById("li13");
+            //创建li
+            var li15 = document.createElement("li");
+            //创建文本
+            var text15 =document.createElement('input');
+            text15.setAttribute('type', 'text');//输入框的类型
+            text15.setAttribute('name', "answers");//输入框的名字
+            text15.setAttribute('id', "b");//输入框的id
+            //把文本添加到li下面 appendChild
+            li15.appendChild(text15);
+            //获取到ul
+            var ul21 = document.getElementById("ulid21");
+
+            //insertBefore(newNode,oldNode)
+            ul21.insertBefore(li15,li13);
+            }
+
+
+
+
+</script>
+{% endblock %}

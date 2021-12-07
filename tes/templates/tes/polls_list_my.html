@@ -1,0 +1,71 @@
+{% extends "tes/base.html" %}
+{% block title %}我的投票{% endblock %}
+
+{% block content %}
+<meta charset="utf-8">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <div class="col-md-9 col-md-offset-1">
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>问题</th>
+<!--                        <th>作者</th>-->
+                        <th>开始时间</th>
+                        <th>结束日期</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for question in questions_list %}
+                        {% if question.author_name_id == user.id %}
+                            <tr>
+                                <td>{{ forloop.counter }}</td>
+    <!--                            forloop.counter 的值是一个整数,表示循环的次数。这个属性的值从 1 开始,因此第一次循环时,forloop.counter 等于 1 。-->
+                                <td><a href="{% url 'results' question.id %}">{{ question.question_text }}</a></td>
+<!--                                <td>{{ question.author_name_id }}</td>-->
+                                <td>{{ question.created_datetime }}</td>
+                                <td>{{ question.end_date }}</td>
+                            </tr>
+                        {% endif %}
+                    {% empty %}
+                        <tr>
+                            <td>暂无投票</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <nav>
+                    <ul class="pager">
+                        {% if questions_list.has_previous %}
+<!--                        has_previous 是否有上一页-->
+                            <li class="previous"><a
+                                    href="{% url 'polls_list_my' %}?page={{ questions_list.previous_page_number }}">上一页</a>
+<!--                                上一页页码 previous_page_number-->
+                            </li>
+                        {% else %}
+                            <li class="previous disabled"><a href="#">上一页</a></li>
+                        {% endif %}
+                        第 {{ questions_list.number }}/{{ questions_list.paginator.num_pages }}页
+<!--                        number 当前页 ；num_pages 总共多少页 -->
+                        {% if questions_list.has_next %}
+                            <li class="next"><a
+                                 href="{% url 'polls_list_my' %}?page= {{ questions_list.next_page_number }} ">下一页</a>
+<!--                                下一页页码next_page_number-->
+                            </li>
+                        {% else %}
+                            <li class="next disabled"><a href="#">下一页</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+                <div>
+                    <p class="text-right">温馨提示：点击问题即可查看详情</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

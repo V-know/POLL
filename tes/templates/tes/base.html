@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    {% load static %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bootstrap.min.css'%}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/base.css'%}">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type=text/javascript" src="{% static 'js/bootstrap.min.js' %}"></script>
+    <!--[if It IE 9]>
+    <script src="http://cdn.bootcss.com/html5shiv/3.7.2/htm15shiv.min.js"></script>
+    <script src="http://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--Here is the navbar-->
+<nav style="background-color:#181818;" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+    <div  class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="collapse">
+                <span style="background-color:#FFFFFF" class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a style="color:#FFF" href="{% url 'homepage' %}" class="navbar-brand"><strong>Library</strong></a>
+        </div>
+        <div id='collapse' class='collapse navbar-collapse'>
+                <ul class="nav navbar-nav">
+                    <li style="color:#A9A9A9"  id="homepage"><a href="{% url 'homepage' %}">主页</a></li>
+                    {% if user.is_active %}
+<!--                    is_active 判断用户是否为可用状态-->
+                        <li id="view_polls"><a href="{% url 'polls_list' %}">查看投票</a></li>
+                        <li id="view_polls_my"><a href="{% url 'polls_list_my' %}">查看我的投票</a> </li>
+                        <li id="add_polls"><a href="{% url 'add_polls' %}">发起投票</a> </li>
+                        {% if user.is_staff %}
+                            <li id="polls_audit"><a href="{% url 'polls_audit' %}">管理投票</a></li>
+                        {% endif %}
+                    {% endif %}
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if user.is_active %}
+                        <li><p class="navbar-text">欢迎你&nbsp;&nbsp;<span id="base_name">{{ user.username }}</span></p>
+                        </li>
+                        <li><a href="{% url 'logout' %}">注销</a></li>
+                        <li><a href="{% url 'change_password' %}" autofocus>修改密码</a></li>
+                    {% else %}
+                        <li><a href="{% url 'sign_up' %}">注册</a></li>
+                        <li><a href="{% url 'login' %}">登录</a></li>
+                    {% endif %}
+                </ul>
+        </div>
+    </div>
+</nav>
+<!-- /nav -->
+<!-- header -->
+<header style="background-color:#000000;" class="jumbotron subhead" id="header-base">
+    <div  class="container">
+        <h1 style="color:#FFF">投票管理系统</h1>
+<!--        <h3 style="color:#FFF">&emsp; &emsp;怒发冲冠，不为红颜，只为举起我神圣的一票，投给最真诚的他。</h3>-->
+        <h3 style="color:#FFF">Voting management</h3>
+    </div>
+</header>
+
+<!-- /.header -->
+<!-- main part-->
+{% block content %}{% endblock %}
+<!-- /.main -->
+<!-- footer -->
+<footer class="footer" role="contentinfo">
+    <hr>
+    <div class="container">
+        <p class="text-center">@All rights reserved</p>
+        <h5 class="text-center"> Powered by&nbsp;<a href="https://www.baidu.com">A Wei</a></h5>
+    </div>
+</footer>
+<!-- /.footer -->
+<script type="text/javascript">
+  $('#{{active_menu}}').addClass("active");
+</script>
+</body>
+</html>

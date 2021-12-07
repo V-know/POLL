@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "test1"
+version = "0.1.0"
+description = ""
+authors = ["caoweishang"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+Django = "^3.2.6"
+
+[tool.poetry.dev-dependencies]
+ipython = "^7.26.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[[tool.poetry.source]]
+name = "tsinghua"
+url = "http://pypi.tuna.tsinghua.edu.cn/simple"
+default = true 

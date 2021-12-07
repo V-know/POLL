@@ -1,0 +1,56 @@
+{% extends "tes/base.html" %}
+{% block title %}投票结果{% endblock %}
+
+{% block content %}
+<meta charset="utf-8">
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 col-md-offset-1">
+            <!--            col-md- 分成十二分之几 col-md-offset- 位于这个几份的哪一份 -->
+            <div class="col-md-12">
+                <div class="col-md-10 col-md-offset-3">
+                    <h1>{{ question.question_text }}</h1>
+                    <br>
+                    <ul>
+                        {% for choice in question.choice_set.all %}
+                        <h5>{{ choice.choice_text }} --票数：<strong>{{choice.votes }}</strong></h5>
+                        <br>
+                        {% endfor %}
+                    </ul>
+                    </br>
+
+                </div>
+            </div>
+
+            <div class="col-md-5 col-md-offset-3">
+                <br>
+                <p>发布日期: {{ question.created_datetime }}</p>
+                <p>结束日期: {{ question.end_date }}</p>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-2 col-md-offset-8">
+                    <a class="btn btn btn-primary btn-block" onClick="javascript :history.back(-1);">返回</a>
+<!--                    <a class="btn btn btn-primary btn-block" href="{% url 'polls_list'  %}">Return</a>-->
+                    <!--                    <button class="btn btn btn-primary btn-block" type="submit">提交</button>-->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+{% endblock %}
+
+
+<!--<h1>{{ question.question_text }}</h1>-->
+<!--<ul>-->
+<!--  {% for choice in question.choice_set.all %}-->
+<!--    <li>{{ choice.choice_text }} &#45;&#45; <strong>{{choice.votes }}</strong></li>-->
+<!--  {% endfor %}-->
+<!--</ul>-->
+<!--<a href="{% url 'tes:detail' question.id %}">Vote again?</a>-->
+<!--</body>-->
+<!--</html>-->
